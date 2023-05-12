@@ -1,0 +1,30 @@
+# fly.toml app configuration file generated for offby1-n8n on 2023-05-11T22:16:56-07:00
+#
+# See https://fly.io/docs/reference/configuration/ for information about how to use this file.
+#
+
+app = "offby1-n8n"
+primary_region = "sea"
+
+[build]
+  image = "n8nio/n8n"
+
+[http_service]
+  internal_port = 5678
+  force_https = true
+  auto_stop_machines = false
+  auto_start_machines = true
+  min_machines_running = 1
+
+[mounts]
+  source="n8n_data"
+  destination="/home/node/.n8n"
+
+[env]
+  N8N_HOST = "offby1-n8n.fly.dev" # .fly.dev
+  WEBHOOK_URL = "https://offby1-n8n.fly.dev" # https://<your-app-name>.fly.dev
+  TINI_SUBREAPER = "true"
+  N8N_DIAGNOSTICS_ENABLED = "false" # optional
+  N8N_HIRING_BANNER_ENABLED = "false" # optional
+  # Find yours https://momentjs.com/timezone/
+  GENERIC_TIMEZONE = "America/Los_Angeles"
